@@ -17,6 +17,11 @@ public class BulletController : NetworkBehaviour
     int SpawnerId;
     int OwnerConn;
 
+    private void Start()
+    {
+        AudioManager.Instance?.PlayShootSFX();
+    }
+
     public override void OnStartServer()
     {
         base.OnStartServer();
@@ -69,5 +74,12 @@ public class BulletController : NetworkBehaviour
         Debug.Log("Hit Player " + healthComp.gameObject.name);
         Despawn();
         //Deal damage here.
+    }
+
+
+    [ObserversRpc]
+    void RPCPlayHitSFX()
+    {
+        AudioManager.Instance?.PlayHitSFX();
     }
 }

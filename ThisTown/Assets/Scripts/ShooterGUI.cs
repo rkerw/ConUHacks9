@@ -31,5 +31,6 @@ public class ShooterGUI : MonoBehaviour
     {
         roundText.text = $"Round {roundNumber}!!";
         animator.SetTrigger("ShowRound");
+        AudioManager.Instance?.PlayRoundSFX();
     }
 }

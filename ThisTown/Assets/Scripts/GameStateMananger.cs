@@ -47,6 +47,7 @@ public class GameStateMananger : MonoBehaviour
     private void Start()
     {
         DontDestroyOnLoad(this);
+        AudioManager.Instance?.PlayBG();
     }
 
 
