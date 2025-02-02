@@ -76,6 +76,7 @@ public class GunController : NetworkBehaviour
             NetworkObject nob = networkManager.GetPooledInstantiated(projectilePrefab, firePoint.position, Quaternion.Euler(rotation), true);
             networkManager.ServerManager.Spawn(nob, null);
 
+            nob.transform.right = firePoint.right;
             nob.GetComponent<BulletController>()?.Initialise(spawnInfo.DamagePerBullet, spawnInfo.Owner, spawnInfo.OwnerConn);
         }
     }

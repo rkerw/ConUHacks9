@@ -1,6 +1,7 @@
 using FishNet;
 using FishNet.Managing;
 using FishNet.Object;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -31,6 +32,8 @@ public class ShooterGameController : NetworkBehaviour
     public override void OnStartServer()
     {
         base.OnStartServer();
+        if(roundWins == null)
+            roundWins = new List<int>();
         int spawnIndx = 0;
         var networkManager = InstanceFinder.NetworkManager;
         players = new List<NetworkObject>();
@@ -41,6 +44,20 @@ public class ShooterGameController : NetworkBehaviour
             spawnIndx = (spawnIndx + 1) % spawnPoints.Count;
             players.Add(nob);
         }
+
+        StartCoroutine(StartRound());
+    }
+
+    IEnumerator StartRound()
+    {
+        yield return new WaitForSeconds(0.5f);
+        RPCShowRoundStartGUI(roundWins.Count + 1);
+    }
+
+    [ObserversRpc]
+    void RPCShowRoundStartGUI(int roundNumber)
+    {
+        ShooterGUI.Instance?.ShowRound(roundNumber);
     }
 
     public void SetRoundWinServer(int connectionId)
@@ -72,13 +89,24 @@ public class ShooterGameController : NetworkBehaviour
 
             UpdateWinnerInfoForClients(connectionId);
             HackyMemory.SetWinner(connectionId);
-            GameStateMananger.Instance.SwitchState(GameState.GameOver);
-
+            StartCoroutine(DelayedAction(() =>
+            {
+                GameStateMananger.Instance.SwitchState(GameState.GameOver);
+            }, 0.75f));
         }
         else
         {
-            GameStateMananger.Instance.SwitchState(GameState.Poker);
+            StartCoroutine(DelayedAction(() =>
+            {
+                GameStateMananger.Instance.SwitchState(GameState.Poker);
+            }, 1.5f));
         }
+    }
+
+    IEnumerator DelayedAction(System.Action action, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        action?.Invoke();
     }
 
     [ObserversRpc]

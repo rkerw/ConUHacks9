@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 
 public class Health : NetworkBehaviour
 {
-    [SerializeField] private float StartingHealth = 100;
+    public float StartingHealth = 100;
     public readonly SyncVar<float> CurrentHealth = new SyncVar<float>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

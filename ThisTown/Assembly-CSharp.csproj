@@ -65,12 +65,14 @@
     <Compile Include="Assets\Scripts\RotateAroundAxis.cs" />
     <Compile Include="Assets\Scripts\GameStateMananger.cs" />
     <Compile Include="Assets\FishNet\Upgrading\UpgradeFromMirrorMenu.cs" />
+    <Compile Include="Assets\Scripts\AudioManager.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\GunParameters.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GameOverController.cs" />
     <Compile Include="Assets\FishNet\Upgrading\EdgegapMenu.cs" />
     <Compile Include="Assets\Scripts\HackyMemory.cs" />
     <Compile Include="Assets\FishNet\Upgrading\MirrorUpgrade.cs" />
+    <Compile Include="Assets\Scripts\ShooterGUI.cs" />
     <Compile Include="Assets\Scripts\Gameplay\PokerGameController.cs" />
     <Compile Include="Assets\Scripts\Health.cs" />
     <Compile Include="Assets\Scripts\PlayerMovementController.cs" />

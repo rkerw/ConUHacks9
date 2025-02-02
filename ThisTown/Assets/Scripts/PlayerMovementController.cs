@@ -11,7 +11,7 @@ public class PlayerMovementController : NetworkBehaviour
     private Vector3 moveInput;
     private Rigidbody2D rb2d;
     private Animator animator;
-    private bool isFacingRight = true;
+    private bool isFacingRight;
 
     public void flip()
     {
@@ -19,6 +19,11 @@ public class PlayerMovementController : NetworkBehaviour
         transform.Rotate(0f, 180f, 0f);
     }
 
+
+    private void Start()
+    {
+        isFacingRight = transform.rotation.eulerAngles.y != 180f;
+    }
 
     public override void OnStartClient()
     {
@@ -51,7 +56,6 @@ public class PlayerMovementController : NetworkBehaviour
         {
             flip();
         }
-
     }
 
     private void FixedUpdate()

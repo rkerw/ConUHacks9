@@ -429,9 +429,9 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 7802322458064348721}
   _networkObjectCache: {fileID: 0}
-  projectilePrefab: {fileID: 2534322966674145775, guid: de4a5544c34dc8246803349b46e5237b, type: 3}
+  projectilePrefab: {fileID: 9134489751049579058, guid: de4a5544c34dc8246803349b46e5237b, type: 3}
   firePoint: {fileID: 0}
-  projectileSpeed: 0
+  gunParameters: {fileID: 0}
 --- !u!61 &5250383554477065276
 BoxCollider2D:
   m_ObjectHideFlags: 0

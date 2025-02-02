@@ -15,10 +15,12 @@ public class PlayerController : NetworkBehaviour
     private Vector2 moveInput;
     private PlayerMovementController movementController;
     private Health healthComp;
+    bool isOwner;
 
     public override void OnStartClient()
     {
-        base.OnStartClient(); 
+        base.OnStartClient();
+        isOwner = IsOwner;
         //disable for remote client
         if (!IsOwner)
         {
@@ -46,6 +48,7 @@ public class PlayerController : NetworkBehaviour
             return; //just a safety check
 
         movementController?.UpdateMovement();
+        ShooterGUI.Instance?.UpdateHealth(healthComp.CurrentHealth.Value / healthComp.StartingHealth);
     }
 
     public void ServerOnDeath(int killer)
@@ -56,5 +59,11 @@ public class PlayerController : NetworkBehaviour
         Debug.Log("Player Won: " + killer);
         ShooterGameController.Instance.SetRoundWinServer(killer);
         Despawn();
+    }
+
+    private void OnDestroy()
+    {
+        if(!isOwner) return;
+        ShooterGUI.Instance?.UpdateHealth(0);
     }
 }
