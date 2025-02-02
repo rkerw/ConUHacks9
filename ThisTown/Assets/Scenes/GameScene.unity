@@ -597,6 +597,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 656475177445651465, guid: 7d8587698328da348af4952bef955f5d, type: 3}
+      propertyPath: m_Text
+      value: localhost
+      objectReference: {fileID: 0}
+    - target: {fileID: 2584085448526916096, guid: 7d8587698328da348af4952bef955f5d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.000030518
+      objectReference: {fileID: 0}
+    - target: {fileID: 2584085448526916096, guid: 7d8587698328da348af4952bef955f5d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -49.222992
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688980735872691093, guid: 7d8587698328da348af4952bef955f5d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5161573767445605515, guid: 7d8587698328da348af4952bef955f5d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.000043955
+      objectReference: {fileID: 0}
+    - target: {fileID: 5161573767445605515, guid: 7d8587698328da348af4952bef955f5d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 183
+      objectReference: {fileID: 0}
+    - target: {fileID: 6349148942954229041, guid: 7d8587698328da348af4952bef955f5d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.000043955
+      objectReference: {fileID: 0}
+    - target: {fileID: 6349148942954229041, guid: 7d8587698328da348af4952bef955f5d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -170
+      objectReference: {fileID: 0}
     - target: {fileID: 8484377313024707422, guid: 7d8587698328da348af4952bef955f5d, type: 3}
       propertyPath: m_Name
       value: GameConnectionUI

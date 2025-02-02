@@ -44,9 +44,9 @@ public class GameStateMananger : MonoBehaviour
     }
 
 
-    public void StartGameAsServer(string ipAddr)
+    public void StartGameAsServer()
     {
-        InstanceFinder.NetworkManager.TransportManager.Transport.SetClientAddress(ipAddr);
+        InstanceFinder.NetworkManager.TransportManager.Transport.SetPort(7777);
         if (!InstanceFinder.NetworkManager.ServerManager.Started)
         {
             InstanceFinder.NetworkManager.ServerManager.OnRemoteConnectionState += OnRemoteConnection;
@@ -58,6 +58,7 @@ public class GameStateMananger : MonoBehaviour
 
     public void StartGameAsClient(string ipAddr)
     {
+        InstanceFinder.NetworkManager.TransportManager.Transport.SetPort(7777);
         InstanceFinder.NetworkManager.TransportManager.Transport.SetClientAddress(ipAddr);
         if (!InstanceFinder.NetworkManager.ClientManager.Started)
             InstanceFinder.NetworkManager.ClientManager.StartConnection();
