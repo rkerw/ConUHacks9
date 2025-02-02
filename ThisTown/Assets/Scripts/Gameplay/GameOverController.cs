@@ -2,15 +2,11 @@ using UnityEngine;
 
 public class GameOverController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private TMPro.TMP_Text winText;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        int winner = HackyMemory.GetWinner();
+        winText.text = $"Player {winner + 1} Wins!!";
     }
 }

@@ -3,28 +3,71 @@ using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Connection;
 using FishNet.Object;
+using FishNet;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class BulletController : NetworkBehaviour
 {
 
-    int bulletDamage;  // Specific to player's loadout
+    [SerializeField] private float moveSpeed;
 
-    public void SetDamage(int damage)
+    int damageToDeal=1;
+    Rigidbody2D rb2D;
+    bool initialised = false;
+    int SpawnerId;
+    int OwnerConn;
+
+    public override void OnStartServer()
     {
-        bulletDamage = damage;
+        base.OnStartServer();
+        rb2D = GetComponent<Rigidbody2D>();
+        StartCoroutine(ServerKillRoutine());
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    IEnumerator ServerKillRoutine()
     {
-        
+        yield return new WaitForSeconds(10);
+        this.Despawn();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        
+        if (rb2D)
+        {
+            rb2D.MovePosition(transform.position + transform.right * moveSpeed * Time.fixedDeltaTime);
+        }
+       
     }
 
+    public void Initialise(int damage, int Spawner, int ownerConnection)
+    {
+        damageToDeal = damage;
+        initialised = true;
+        SpawnerId = Spawner;
+        OwnerConn = ownerConnection;
+    }
 
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (!InstanceFinder.IsServer)
+            return;
+
+        if (!initialised)
+            return;
+
+        var nob = collider.GetComponent<NetworkObject>();
+        if (nob != null && nob.ObjectId == SpawnerId)
+            return;
+
+        Debug.Log("Bullet Hit Something");
+        var healthComp = collider.GetComponent<Health>();
+        if(healthComp == null) {
+            return;
+        }
+
+        healthComp.ServerApplyDamage(damageToDeal, OwnerConn);
+        Debug.Log("Hit Player " + healthComp.gameObject.name);
+        Despawn();
+        //Deal damage here.
+    }
 }

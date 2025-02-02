@@ -5,6 +5,7 @@ using FishNet.Object;
 using FishNet.Transporting;
 using FishNet.Transporting.Tugboat;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,15 +19,19 @@ public class GameStateMananger : MonoBehaviour
         GameOver
     }
 
-    private const int MIN_PLAYERS_NEEDED = 2;
     private const string MAIN_MENU_SCENE = "GameMenu";
     private const string POKER_GAME_SCENE = "PokerScene";
     private const string SHOOTER_GAME_SCENE = "ShooterScene";
     private const string GAMEOVER_SCENE = "GameOver";
 
 
+    [SerializeField] private int MinimumPlayers=2;
+ 
     private static GameStateMananger _instance;
     private List<int> players;
+    private GameState currentState;
+
+    public GameState CurrentState => currentState;
 
     public static GameStateMananger Instance
     {
@@ -83,11 +88,10 @@ public class GameStateMananger : MonoBehaviour
         }
 
 
-        if (players.Count < MIN_PLAYERS_NEEDED)
+        if (players.Count < MinimumPlayers)
             return;
 
         SwitchState(GameState.Poker);
-
     }
 
     void LoadSceneNetworked(string sceneName)
@@ -102,6 +106,7 @@ public class GameStateMananger : MonoBehaviour
 
     public void SwitchState(GameState gameState)
     {
+        Debug.Log($"Changing GameState {currentState} --> {gameState}");
         switch (gameState)
         {
             case GameState.MainMenu:
@@ -118,6 +123,8 @@ public class GameStateMananger : MonoBehaviour
                 LoadSceneNetworked(GAMEOVER_SCENE);
                 break;
         }
+
+        currentState = gameState;
     }
 
     private void LoadMainMenu()
@@ -134,5 +141,4 @@ public class GameStateMananger : MonoBehaviour
 
         UnityEngine.SceneManagement.SceneManager.LoadScene(MAIN_MENU_SCENE);
     }
-
 }

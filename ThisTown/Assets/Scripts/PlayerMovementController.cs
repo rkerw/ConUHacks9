@@ -32,6 +32,26 @@ public class PlayerMovementController : NetworkBehaviour
        {
            moveInput.Normalize();
        }
+
+
+        if (moveInput.x != 0 || moveInput.y != 0)
+        {
+            animator.SetBool("isMoving", true);
+        }
+        else
+        {
+            animator.SetBool("isMoving", false);
+        }
+
+        if (moveInput.x > 0 && !isFacingRight)
+        {
+            flip();
+        }
+        else if (moveInput.x < 0 && isFacingRight)
+        {
+            flip();
+        }
+
     }
 
     private void FixedUpdate()
@@ -49,22 +69,5 @@ public class PlayerMovementController : NetworkBehaviour
 
         var newPosition = transform.position + (moveInput * moveSpeed * Time.fixedDeltaTime);
         rb2d.MovePosition(newPosition);
-
-        if (moveInput.x != 0 || moveInput.y != 0)
-        {
-            animator.SetBool("isMoving", true);
-        } else {
-            animator.SetBool("isMoving", false);
-        }
-
-        if (moveInput.x > 0 && !isFacingRight)
-        {
-            flip();
-        }
-        else if (moveInput.x < 0 && isFacingRight)
-        {
-            flip();
-        }
-        
     }
 }

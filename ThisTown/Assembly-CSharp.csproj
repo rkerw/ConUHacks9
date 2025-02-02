@@ -62,14 +62,20 @@
     <Analyzer Include="D:\GEMS\Unity Projects\ConUHacks9\ThisTown\Assets\FishNet\Runtime\Plugins\CodeAnalysis\FishNet.CodeAnalysis.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\RotateAroundAxis.cs" />
     <Compile Include="Assets\Scripts\GameStateMananger.cs" />
     <Compile Include="Assets\FishNet\Upgrading\UpgradeFromMirrorMenu.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\GunParameters.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GameOverController.cs" />
     <Compile Include="Assets\FishNet\Upgrading\EdgegapMenu.cs" />
+    <Compile Include="Assets\Scripts\HackyMemory.cs" />
     <Compile Include="Assets\FishNet\Upgrading\MirrorUpgrade.cs" />
     <Compile Include="Assets\Scripts\Gameplay\PokerGameController.cs" />
+    <Compile Include="Assets\Scripts\Health.cs" />
     <Compile Include="Assets\Scripts\PlayerMovementController.cs" />
+    <Compile Include="Assets\Scripts\GunController.cs" />
+    <Compile Include="Assets\Scripts\BulletController.cs" />
     <Compile Include="Assets\Scripts\Gameplay\ShooterGameController.cs" />
     <Compile Include="Assets\Scripts\Gameplay\UI\GameConnectionUI.cs" />
   </ItemGroup>

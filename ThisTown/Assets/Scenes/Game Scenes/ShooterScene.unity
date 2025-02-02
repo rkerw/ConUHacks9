@@ -291,7 +291,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 0.71414286
+  orthographic size: 20
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -374,6 +374,7 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 956475879}
   - {fileID: 1384602058}
+  TotalRounds: 3
 --- !u!114 &383035203
 MonoBehaviour:
   m_ObjectHideFlags: 0

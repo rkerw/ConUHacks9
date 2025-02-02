@@ -4,6 +4,8 @@ using UnityEngine;
 using FishNet.Connection;
 using FishNet.Object;
 using Unity.Cinemachine;
+using System;
+using FishNet;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -12,6 +14,7 @@ public class PlayerController : NetworkBehaviour
 
     private Vector2 moveInput;
     private PlayerMovementController movementController;
+    private Health healthComp;
 
     public override void OnStartClient()
     {
@@ -24,7 +27,9 @@ public class PlayerController : NetworkBehaviour
         }
 
         movementController = GetComponent<PlayerMovementController>();
-        cameraTarget.gameObject.SetActive(true);
+        healthComp = GetComponent<Health>();
+        //healthComp.OnDeath += ServerOnDeath;
+        //cameraTarget.gameObject.SetActive(true);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -41,5 +46,15 @@ public class PlayerController : NetworkBehaviour
             return; //just a safety check
 
         movementController?.UpdateMovement();
+    }
+
+    public void ServerOnDeath(int killer)
+    {
+        if (!InstanceFinder.NetworkManager.IsServer)
+            return;
+
+        Debug.Log("Player Won: " + killer);
+        ShooterGameController.Instance.SetRoundWinServer(killer);
+        Despawn();
     }
 }
