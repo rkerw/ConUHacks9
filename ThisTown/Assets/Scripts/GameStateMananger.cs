@@ -47,20 +47,24 @@ public class GameStateMananger : MonoBehaviour
 
     public void StartGameAsServer(string ipAddr)
     {
-        FindFirstObjectByType<Tugboat>()?.SetServerBindAddress(ipAddr, IPAddressType.IPv4);
-        FindFirstObjectByType<Tugboat>()?.SetPort(9999);
+        
         if (!InstanceFinder.NetworkManager.ServerManager.Started)
         {
+            FindFirstObjectByType<Tugboat>()?.SetServerBindAddress("127.0.0.1", IPAddressType.IPv4);
+            FindFirstObjectByType<Tugboat>()?.SetPort(9999);
             InstanceFinder.NetworkManager.ServerManager.OnRemoteConnectionState += OnRemoteConnection;
 
             if (InstanceFinder.NetworkManager.ServerManager.StartConnection())
-                InstanceFinder.NetworkManager.ClientManager.StartConnection();
+            {
+                StartGameAsClient(ipAddr);
+            }
+       
         }
     }
 
     public void StartGameAsClient(string ipAddr)
     {
-        FindFirstObjectByType<Tugboat>()?.SetClientAddress("localhost");
+        FindFirstObjectByType<Tugboat>()?.SetClientAddress(ipAddr);
         FindFirstObjectByType<Tugboat>()?.SetPort(9999);
         if (!InstanceFinder.NetworkManager.ClientManager.Started)
             InstanceFinder.NetworkManager.ClientManager.StartConnection();
