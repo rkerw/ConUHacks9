@@ -3,6 +3,7 @@ using FishNet.Connection;
 using FishNet.Managing.Scened;
 using FishNet.Object;
 using FishNet.Transporting;
+using FishNet.Transporting.Tugboat;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -44,9 +45,10 @@ public class GameStateMananger : MonoBehaviour
     }
 
 
-    public void StartGameAsServer()
+    public void StartGameAsServer(string ipAddr)
     {
-        InstanceFinder.NetworkManager.TransportManager.Transport.SetPort(7777);
+        FindFirstObjectByType<Tugboat>()?.SetServerBindAddress(ipAddr, IPAddressType.IPv4);
+        FindFirstObjectByType<Tugboat>()?.SetPort(9999);
         if (!InstanceFinder.NetworkManager.ServerManager.Started)
         {
             InstanceFinder.NetworkManager.ServerManager.OnRemoteConnectionState += OnRemoteConnection;
@@ -58,8 +60,8 @@ public class GameStateMananger : MonoBehaviour
 
     public void StartGameAsClient(string ipAddr)
     {
-        InstanceFinder.NetworkManager.TransportManager.Transport.SetPort(7777);
-        InstanceFinder.NetworkManager.TransportManager.Transport.SetClientAddress(ipAddr);
+        FindFirstObjectByType<Tugboat>()?.SetClientAddress("localhost");
+        FindFirstObjectByType<Tugboat>()?.SetPort(9999);
         if (!InstanceFinder.NetworkManager.ClientManager.Started)
             InstanceFinder.NetworkManager.ClientManager.StartConnection();
     }

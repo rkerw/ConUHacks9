@@ -17,7 +17,7 @@ public class GameConnectionUI : MonoBehaviour
 
         serverStart.onClick.AddListener(() =>
         {
-            GameStateMananger.Instance.StartGameAsServer();
+            GameStateMananger.Instance.StartGameAsServer(ipAddrField.text);
         });
     }
 }
